@@ -4,9 +4,11 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { AuthenticateController } from "src/controllers/authenticate-controller";
 import { Env } from "src/env";
+import { PrismaModule } from "src/prisma/prisma.module";
 
 @Module({
   imports: [
+    PrismaModule,
     PassportModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
@@ -23,7 +25,7 @@ import { Env } from "src/env";
         }
 
         return {
-          // signOptions: { algorithm: 'RS256' },
+          signOptions: { algorithm: 'RS256' },
           privateKey: Buffer.from(privateKey, 'base64'),
           publicKey: Buffer.from(publicKey, 'base64'),
         }
