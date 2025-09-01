@@ -1,5 +1,8 @@
-import { Controller, Post, UseGuards } from "@nestjs/common";
+import { Controller, Post, Req, UseGuards } from "@nestjs/common";
+import type { Request } from "express";
+import { CurrentUser } from "src/auth/current-user-decorator";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { UserPayload } from "src/auth/jwt.strategy";
 
 
 @Controller('/questions')
@@ -9,7 +12,9 @@ export class CreateQuestionController {
   ) {}
 
   @Post()
-  async handle() {
-    return 'ok'
+  async handle(@CurrentUser() user: UserPayload) {
+    console.log(user)
+
+    return "ok!"
   }
 }
