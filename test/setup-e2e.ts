@@ -6,7 +6,7 @@ import { execSync } from 'node:child_process'
 const prisma = new PrismaClient()
 
 function generateUniqueDatabaseURL(schemaId: string) {
-  if(!process.env.DATABASE_URL) {
+  if (!process.env.DATABASE_URL) {
     throw new Error('Please provide the DATABASE_URL.')
   }
 
@@ -19,7 +19,7 @@ function generateUniqueDatabaseURL(schemaId: string) {
 
 const schemaId = randomUUID()
 
-beforeAll(async() => {
+beforeAll(async () => {
   const databaseURL = generateUniqueDatabaseURL(schemaId)
 
   process.env.DATABASE_URL = databaseURL

@@ -1,22 +1,21 @@
-import { AppModule } from "@/app.module";
-import { PrismaService } from "@/prisma/prisma.service";
-import { INestApplication } from "@nestjs/common"
-import { JwtService } from "@nestjs/jwt";
-import { Test } from "@nestjs/testing"
-import { response } from "express";
-import request from "supertest"
+import { AppModule } from '@/app.module'
+import { PrismaService } from '@/prisma/prisma.service'
+import { INestApplication } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { Test } from '@nestjs/testing'
+import request from 'supertest'
 
 describe('Fetch question (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
   let jwt: JwtService
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    }).compile()
 
-    app = moduleRef.createNestApplication();
+    app = moduleRef.createNestApplication()
     prisma = moduleRef.get(PrismaService)
     jwt = moduleRef.get(JwtService)
 
@@ -26,10 +25,10 @@ describe('Fetch question (E2E)', () => {
   test('[GET] / questions', async () => {
     const user = await prisma.user.create({
       data: {
-        name: "Jonny Doe",
+        name: 'Jonny Doe',
         email: 'jonnydoe@examplemail.com',
         password: '123456',
-      }
+      },
     })
 
     const accessToken = jwt.sign({ sub: user.id })
@@ -62,10 +61,9 @@ describe('Fetch question (E2E)', () => {
 
     expect(response.body).toEqual({
       questions: [
-        expect.objectContaining({title: 'Question 01'}),
-        expect.objectContaining({title: 'Question 02'}),
-      ]
+        expect.objectContaining({ title: 'Question 01' }),
+        expect.objectContaining({ title: 'Question 02' }),
+      ],
     })
-
   })
 })
