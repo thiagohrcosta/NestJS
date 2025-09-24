@@ -13,7 +13,7 @@ import { FetchRecentQuestionsController } from './controllers/fetch-recent-quest
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
-      validate: env => envSchema.parse(env),
+      validate: (env) => envSchema.parse(env),
     }),
     AuthModule,
   ],
